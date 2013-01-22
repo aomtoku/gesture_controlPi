@@ -1,0 +1,6 @@
+rm -rf ../Bin/Release/aom-ORF
+rm -rf ./Release/main.o ./Release/SceneDrawer.o
+rm -rf ./Release/main.d ./Release/SceneDrawer.d
+g++ -c -m32 -arch i386 -g -arch x86_64 -msse3 -O2 -DNDEBUG -I../../Include -I/usr/include/ni -I/usr/X11/include -I/Users/toku1938/Documents/freeglut-2.8.0/include/  -o Release/main.o main.cpp
+g++ -c -m32 -arch i386 -g -arch x86_64 -msse3 -O2 -DNDEBUG -I../../Include -I/usr/include/ni -I/usr/X11/include -I/Users/toku1938/Documents/freeglut-2.8.0/include/  -o Release/SceneDrawer.o SceneDrawer.cpp
+g++ -o ../Bin/Release/aom-ORF ./Release/main.o ./Release/SceneDrawer.o -framework OpenGL -framework GLUT -lGL -lXext -lX11 -lXrandr -lXxf86vm -lSM -lICE -lfreeglut -arch x86_64 -L../../Lib -L/usr/X11R6/lib -L/usr/local/lib -L/Users/toku1938/Documents/freeglut-2.8.0/src/.libs -L../Bin/Release -lOpenNI -lGL -lXext -lX11 -lXrandr -lXxf86vm -lSM -lICE -lfreeglut
