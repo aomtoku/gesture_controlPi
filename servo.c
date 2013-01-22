@@ -8,7 +8,7 @@
 
 #include <wiringPi.h>
 
-/*Gloval Variable*/
+/*Gloval Variables*/
 
 int n; //filediscpritor
 int sock; //socket discpritor
