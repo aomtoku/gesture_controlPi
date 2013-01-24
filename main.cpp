@@ -265,18 +265,20 @@ void glutDisplay (void){
 		    }
 		}
 		
-		printf("switching now\n hands->Y %lf\n shoulder->Y %lf\n",Position[4].Y,Position[2].Y);
+		printf("switching now\n hands->Y %lf\n shoulder->Y %lf\n",Position[5].Y,Position[3].Y);
 		char onof[16];
-		if(Position[2].Y < Position[4].Y){
-		    onof[16] = '1';
+		if(Position[3].Y < Position[5].Y){
+		    sprintf(onof,"%s","ON");
+		    //onof[16] = '1';
 		    new_turn = 1;
 		} else {
-		    onof[16] = '0';
+		    sprintf(onof,"%s","OFF");
+		    //onof[16] = '0';
 		    new_turn = 0;
 		}
 		
 		if(turnpoint != new_turn){
-			write(sock, onof, 16);
+			write(sock0, onof, 4);
 			turnpoint = new_turn;
 			printf("Switch on/off \n");
 		    //close(sock);
@@ -360,14 +362,15 @@ int main(int argc, char **argv)
 
 		nRetVal = g_Context.Init();
 		CHECK_RC(nRetVal, "Init");
-		//nRetVal = g_Context.OpenFileRecording(argv[1], g_Player);
+		/*nRetVal = g_Context.OpenFileRecording(argv[1], g_Player);
 		nRetVal = g_Context.OpenFileRecording(SAMPLE_XML_PATH);
+		*/
 		nRetVal = g_Context.InitFromXmlFile(SAMPLE_XML_PATH);
-		if (nRetVal != XN_STATUS_OK)
+		/*if (nRetVal != XN_STATUS_OK)
 		{
 			printf("Can't open recording %s: %s\n", argv[1], xnGetStatusString(nRetVal));
 			return 1;
-		}
+		}*/
 	}
 	else
 	{
