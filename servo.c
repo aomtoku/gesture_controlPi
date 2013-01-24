@@ -36,11 +36,11 @@ void Servo(int pin, char *buf){
     write(1, buf, n);
     if(strcmp(buf,"ON") == 0){
 	cont = 1;
-	//digitalWrite(pin,cont);
+	digitalWrite(pin,cont);
 	printf("the value is %d\n",cont);
     } else if(strcmp(buf,"OFF") == 0){
 	cont = 0;
-	//digitalWrite(pin,cont);
+	digitalWrite(pin,cont);
 	printf("the value is %d\n",cont);
     }
 }
@@ -55,7 +55,7 @@ int main (int argc, char *argv[])
 	return 1 ;
     }
     int pin = 0; //GPIO 17
-    //pinMode(pin, OUTPUT);
+    pinMode(pin, OUTPUT);
 
     while(1){
 	while((n = read(sock,buf,4)) > 0){
