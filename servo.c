@@ -10,12 +10,12 @@
 
 /*Gloval Variables*/
 
-int n; //filediscpritor
+int n; //the number of bytes 
 int sock; //socket discpritor
 
 
 void InitServer(int port){
-    struct hostent *host;
+   struct hostent *host;
     struct sockaddr_in me;
     int s0;
     char buf[512];
@@ -31,16 +31,23 @@ void InitServer(int port){
     sock = accept(s0,NULL, NULL);
 }
 
-void Servo(int pin, char buf){
+void Servo(int pin, char *buf){
+    int cont;
     write(1, buf, n);
-    int val = atoi(buf);
-printf("value = %d\n",val);
-    digitalWrite(pin,val);
+    if(strcmp(buf,"ON") == 0){
+	cont = 1;
+	//digitalWrite(pin,cont);
+	printf("the value is %d\n",cont);
+    } else if(strcmp(buf,"OFF") == 0){
+	cont = 0;
+	//digitalWrite(pin,cont);
+	printf("the value is %d\n",cont);
+    }
 }
 
 int main (int argc, char *argv[])
 {
-    char buf[512];
+    char buf[4];
     if(argc == 2) InitServer(atoi(argv[1]));
     
     if (wiringPiSetup () == -1){
@@ -48,11 +55,11 @@ int main (int argc, char *argv[])
 	return 1 ;
     }
     int pin = 0; //GPIO 17
-    pinMode(pin, OUTPUT);
+    //pinMode(pin, OUTPUT);
 
     while(1){
-	while((n = read(sock,buf,512)) > 0){
-	    Servo(pin, buf[512]);
+	while((n = read(sock,buf,4)) > 0){
+	    Servo(pin, buf);
         }
     }
 
