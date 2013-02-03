@@ -6,6 +6,7 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
+#include <softPwm.h>
 #include <wiringPi.h>
 
 /*Gloval Variables*/
@@ -15,7 +16,7 @@ int sock; //socket discpritor
 
 
 void InitServer(int port){
-   struct hostent *host;
+    struct hostent *host;
     struct sockaddr_in me;
     int s0;
     char buf[512];
@@ -48,7 +49,7 @@ void Servo(int pin, char *buf){
 	printf("the value is %d\n",cont);
     } else if(strcmp(buf,"mid2") == 0){
 	cont = 190;
-	PwmWrite(pin,cont);
+	softPwmWrite(pin,cont);
 	printf("the value is %d\n",cont);
     } else if(strcmp(buf,"hig1") == 0){
 	cont = 192;
@@ -57,7 +58,7 @@ void Servo(int pin, char *buf){
     } else if(strcmp(buf,"hig2") == 0){
 	cont = 194;
 	softPwmWrite(pin,cont);
-	printf("the value is %d\n",cont);
+	printf("\nthe value is %d\n",cont);
     } else {
 	softPwmWrite(pin,180);
     }
@@ -66,9 +67,18 @@ void Servo(int pin, char *buf){
 int main (int argc, char *argv[])
 {
     char buf[4];
-    if(argc == 2) InitServer(atoi(argv[1]));
+    if(argc == 2){ 
+	InitServer(atoi(argv[1]));
+    } else { 
+	printf("not enough argument.\n");
+	exit(1);
+    }
+    if (wiringPiSetup () == -1) exit (1) ;
+        pinMode (0, OUTPUT);
+	digitalWrite (0, LOW) ;
+
     int pin = 0; //GPIO 17
-    if (softPwmCreate(pin,0,200) != 0){
+    if (softPwmCreate(0,0,200) != 0){
 	fprintf (stdout, "oops: %s\n", strerror (errno)) ;
 	return 1 ;
     }
