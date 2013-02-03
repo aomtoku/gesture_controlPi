@@ -251,7 +251,7 @@ void glutDisplay (void){
 		        Pos(aUsers[i],XN_SKEL_LEFT_ELBOW,&Position[4]);
 		        Pos(aUsers[i],XN_SKEL_LEFT_HAND,&Position[5]);
 
-		        Pos(aUsers[i],XN_SKEL_RIGHT_SHOULDER,&Position[6]);
+		        /*Pos(aUsers[i],XN_SKEL_RIGHT_SHOULDER,&Position[6]);
 		        Pos(aUsers[i],XN_SKEL_RIGHT_ELBOW,&Position[7]);
 		        Pos(aUsers[i],XN_SKEL_RIGHT_HAND,&Position[8]);
 
@@ -262,12 +262,36 @@ void glutDisplay (void){
 		        Pos(aUsers[i],XN_SKEL_RIGHT_HIP,&Position[12]);
 		        Pos(aUsers[i],XN_SKEL_RIGHT_KNEE,&Position[13]);
 		        Pos(aUsers[i],XN_SKEL_RIGHT_FOOT,&Position[14]);
+			*/
 		    }
 		}
 		
 		printf("switching now\n hands->Y %lf\n shoulder->Y %lf\n",Position[5].Y,Position[3].Y);
 		char onof[16];
-		if(Position[3].Y < Position[5].Y){
+		const double middle_low = (Position[4].Y + Position[3].Y) / 2;
+		const double middle_mid = (Position[3].Y + Position[0].Y) / 2;
+		const double head = Position[2].Y - Position[3].Y;
+		if(Position[4].Y < Position[5].Y){
+		    new_turn = 1;
+		    if(Position[5].Y < middle_low){
+			sprintf(onof,"%s","low1");
+		    } else if(Position[5].Y > middle_low){
+			sprintf(onof,"%s","low2");
+		    } else if(Position[5].Y < middle_mid){
+			sprintf(onof,"%s","mid1");
+		    } else if(Position[5].Y > middle_mid){
+			sprintf(onof,"%s","mid2");
+		    } else if(Position[5].Y < Position[2].Y + head){
+			sprintf(onof,"%s","hig1");
+		    } else if(Position[5].Y > Position[2].Y + head){
+			sprintf(onof,"%s","hig2");
+		    }
+		} else {
+		    sprintf(onof,"%s","no");
+		    new_turn = 0;
+		}
+
+		/*if(Position[3].Y < Position[5].Y){
 		    sprintf(onof,"%s","ON");
 		    //onof[16] = '1';
 		    new_turn = 1;
@@ -275,14 +299,17 @@ void glutDisplay (void){
 		    sprintf(onof,"%s","OFF");
 		    //onof[16] = '0';
 		    new_turn = 0;
-		}
+		}*/
 		
-		if(turnpoint != new_turn){
+		/*
+		if(new_turn != turnpoint){
 			write(sock0, onof, 4);
 			turnpoint = new_turn;
 			printf("Switch on/off \n");
 		    //close(sock);
 		}
+		*/
+		write(sock0,onof, 4);
 #ifndef USE_GLES
 	glutSwapBuffers();
 #endif
