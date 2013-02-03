@@ -67,7 +67,7 @@ int main (int argc, char *argv[])
 {
     char buf[4];
     if(argc == 2) InitServer(atoi(argv[1]));
-    int pin = 0 //GPIO 17
+    int pin = 0; //GPIO 17
     if (softPwmCreate(pin,0,200) != 0){
 	fprintf (stdout, "oops: %s\n", strerror (errno)) ;
 	return 1 ;
