@@ -303,10 +303,6 @@ void glutDisplay (void){
 #endif
 }
 
-#ifndef USE_GLES
-	glutSwapBuffers();
-#endif
-}
 
 #ifndef USE_GLES
 void glutIdle (void)
