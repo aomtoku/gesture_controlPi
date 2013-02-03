@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdint.h>
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
@@ -70,7 +71,7 @@ int main (int argc, char *argv[])
     if(argc == 2){ 
 	InitServer(atoi(argv[1]));
     } else { 
-	printf("not enough argument.\n");
+	printf("not enough argument.\nusage: sudo ./a.out <port number>\n\n");
 	exit(1);
     }
     if (wiringPiSetup () == -1) exit (1) ;
