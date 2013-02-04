@@ -37,31 +37,31 @@ void Servo(int pin, char *buf){
     int cont;
     write(1, buf, n);
     if(strcmp(buf,"low1") == 0){
-	cont = 184;
-	softPwmWrite(pin,cont);
-	printf("the value is %d\n",cont);
-    } else if(strcmp(buf,"low2") == 0){
-	cont = 186;
-	softPwmWrite(pin,cont);
-	printf("the value is %d\n",cont);
-    } else if(strcmp(buf,"mid1") == 0){
-	cont = 188;
-	softPwmWrite(pin,cont);
-	printf("the value is %d\n",cont);
-    } else if(strcmp(buf,"mid2") == 0){
 	cont = 190;
 	softPwmWrite(pin,cont);
-	printf("the value is %d\n",cont);
-    } else if(strcmp(buf,"hig1") == 0){
-	cont = 192;
+	printf("\nthe value is %d\n",cont);
+    } else if(strcmp(buf,"low2") == 0){
+	cont = 188;
 	softPwmWrite(pin,cont);
-	printf("the value is %d\n",cont);
+	printf("\nthe value is %d\n",cont);
+    } else if(strcmp(buf,"mid1") == 0){
+	cont = 186;
+	softPwmWrite(pin,cont);
+	printf("\nthe value is %d\n",cont);
+    } else if(strcmp(buf,"mid2") == 0){
+	cont = 184;
+	softPwmWrite(pin,cont);
+	printf("\nthe value is %d\n",cont);
+    } else if(strcmp(buf,"hig1") == 0){
+	cont = 182;
+	softPwmWrite(pin,cont);
+	printf("\nthe value is %d\n",cont);
     } else if(strcmp(buf,"hig2") == 0){
-	cont = 194;
+	cont = 180;
 	softPwmWrite(pin,cont);
 	printf("\nthe value is %d\n",cont);
     } else {
-	softPwmWrite(pin,180);
+	softPwmWrite(pin,194);
     }
 }
 
