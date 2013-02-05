@@ -214,26 +214,27 @@ void gesture_ver1(XnPoint3D* Position){
 	new_turn = 1;
 	if(Position[5+3].Y < middle_low){
 	    sprintf(onof,"%s","low1");
-	    printf("low1 at hand : %lf\n",Position[5+3].Y);
+	    printf("status: low1\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y > middle_low && Position[5+3].Y < Position[3+3].Y){
 	    sprintf(onof,"%s","low2");
-	    printf("low2 at hand : %lf\n",Position[5+3].Y);
+	    printf("status: low2\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y < middle_mid){
 	    sprintf(onof,"%s","mid1");
-	    printf("low2 at hand : %lf\n",Position[5+3].Y);
+	    printf("status: mid1\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y > middle_mid && Position[5+3].Y < Position[2].Y){
 	    sprintf(onof,"%s","mid2");
-	    printf("low2 at hand : %lf\n",Position[5+3].Y);
+	    printf("status: mid2\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y < Position[2].Y + head){
 	    sprintf(onof,"%s","hig1");
-	    printf("low2 at hand : %lf\n",Position[5+3].Y);
+	    printf("status: hig1\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y > Position[2].Y + head){
 	    sprintf(onof,"%s","hig2");
-	    printf("low2 at hand : %lf\n",Position[5+3].Y);
+	    printf("status: hig2\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} 
     } else {
 	sprintf(onof,"%s","no");
 	new_turn = 0;
+	printf("status: no\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
     }
     write(sock0,onof,4);
     
