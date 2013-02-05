@@ -204,26 +204,32 @@ void Pos(XnUserID player,XnSkeletonJoint ejoint,XnPoint3D* point)
 }
 
 void gesture_ver1(XnPoint3D* Position){
-    printf("test %lf\n",Position[0].Y);
+    //printf("test %lf\n",Position[0].Y);
     
     char onof[16];
-    const double middle_low = (Position[4].Y + Position[3].Y) / 2;
-    const double middle_mid = (Position[3].Y + Position[0].Y) / 2;
-    const double head = Position[2].Y - Position[3].Y;
-    if(Position[4].Y < Position[5].Y){
+    const double middle_low = (Position[4+3].Y + Position[3+3].Y) / 2;
+    const double middle_mid = (Position[3+3].Y + Position[2].Y) / 2;
+    const double head = Position[2].Y - Position[3+3].Y;
+    if(Position[4+3].Y < Position[5+3].Y){
 	new_turn = 1;
-	if(Position[5].Y < middle_low){
+	if(Position[5+3].Y < middle_low){
 	    sprintf(onof,"%s","low1");
-	} else if(Position[5].Y > middle_low){
+	    printf("low1 at hand : %lf\n",Position[5+3].Y);
+	} else if(Position[5+3].Y > middle_low && Position[5+3].Y < Position[3+3].Y){
 	    sprintf(onof,"%s","low2");
-	} else if(Position[5].Y < middle_mid){
+	    printf("low2 at hand : %lf\n",Position[5+3].Y);
+	} else if(Position[5+3].Y < middle_mid){
 	    sprintf(onof,"%s","mid1");
-	} else if(Position[5].Y > middle_mid){
+	    printf("low2 at hand : %lf\n",Position[5+3].Y);
+	} else if(Position[5+3].Y > middle_mid && Position[5+3].Y < Position[2].Y){
 	    sprintf(onof,"%s","mid2");
-	} else if(Position[5].Y < Position[2].Y + head){
+	    printf("low2 at hand : %lf\n",Position[5+3].Y);
+	} else if(Position[5+3].Y < Position[2].Y + head){
 	    sprintf(onof,"%s","hig1");
-	} else if(Position[5].Y > Position[2].Y + head){
+	    printf("low2 at hand : %lf\n",Position[5+3].Y);
+	} else if(Position[5+3].Y > Position[2].Y + head){
 	    sprintf(onof,"%s","hig2");
+	    printf("low2 at hand : %lf\n",Position[5+3].Y);
 	} 
     } else {
 	sprintf(onof,"%s","no");
@@ -281,10 +287,10 @@ void glutDisplay (void){
 		        Pos(aUsers[i],XN_SKEL_LEFT_ELBOW,&Position[4]);
 		        Pos(aUsers[i],XN_SKEL_LEFT_HAND,&Position[5]);
 
-		        /*Pos(aUsers[i],XN_SKEL_RIGHT_SHOULDER,&Position[6]);
+		        Pos(aUsers[i],XN_SKEL_RIGHT_SHOULDER,&Position[6]);
 		        Pos(aUsers[i],XN_SKEL_RIGHT_ELBOW,&Position[7]);
 		        Pos(aUsers[i],XN_SKEL_RIGHT_HAND,&Position[8]);
-
+/*
 		        Pos(aUsers[i],XN_SKEL_LEFT_HIP,&Position[9]);
 		        Pos(aUsers[i],XN_SKEL_LEFT_KNEE,&Position[10]);
 		        Pos(aUsers[i],XN_SKEL_LEFT_FOOT,&Position[11]);
