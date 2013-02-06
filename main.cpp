@@ -55,8 +55,7 @@ XnBool g_bDrawSkeleton = TRUE;
 XnBool g_bPrintID = TRUE;
 XnBool g_bPrintState = TRUE;
 
-int vert_x = 300;
-int vert_y = 220; 
+int count = 0;
 
 //network with Raspberry Pi
 struct hostent *host;
@@ -214,33 +213,33 @@ void gesture_ver1(XnPoint3D* Position){
 	new_turn = 1;
 	if(Position[5+3].Y < middle_low){
 	    sprintf(onof,"%s","low1");
-	    printf("%lf,%lf,%lf,%lf,low1\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	    printf("%d,%lf,%lf,%lf,%lf,0,low1\n",count,Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
 	    //printf("status: low1\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y > middle_low && Position[5+3].Y < Position[3+3].Y){
 	    sprintf(onof,"%s","low2");
-	    printf("%lf,%lf,%lf,%lf,low2\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	    printf("%d,%lf,%lf,%lf,%lf,1,low2\n",count,Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
 	    //printf("status: low2\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y < middle_mid){
 	    sprintf(onof,"%s","mid1");
-	    printf("%lf,%lf,%lf,%lf,mid1\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	    printf("%d,%lf,%lf,%lf,%lf,2,mid1\n",count,Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
 	    //printf("status: mid1\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y > middle_mid && Position[5+3].Y < Position[2].Y){
 	    sprintf(onof,"%s","mid2");
-	    printf("%lf,%lf,%lf,%lf,mid2\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	    printf("%d,%lf,%lf,%lf,%lf,3,mid2\n",count,Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
 	    //printf("status: mid2\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y < Position[2].Y + head){
 	    sprintf(onof,"%s","hig1");
-	    printf("%lf,%lf,%lf,%lf,hig1\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	    printf("%d,%lf,%lf,%lf,%lf,4,hig1\n",count,Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
 	    //printf("status: hig1\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y > Position[2].Y + head){
 	    sprintf(onof,"%s","hig2");
-	    printf("%lf,%lf,%lf,%lf,hig2\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	    printf("%d,%lf,%lf,%lf,%lf,5,hig2\n",count,Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
 	    //printf("status: hig2\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} 
     } else {
 	sprintf(onof,"%s","no");
 	new_turn = 0;
-	    printf("%lf,%lf,%lf,%lf,no\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	    printf("%d,%lf,%lf,%lf,%lf,6,no\n",count,Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
 	//printf("status: no\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
     }
     write(sock0,onof,4);
@@ -309,9 +308,8 @@ void glutDisplay (void){
 			*/
 		    }
 		}
-		printf("head, shoulder, elbow, hand, status\n");
 		gesture_ver1(Position);
-	
+	        count++;
 #ifndef USE_GLES
 	glutSwapBuffers();
 #endif
@@ -465,6 +463,7 @@ int main(int argc, char **argv)
 
 	nRetVal = g_Context.StartGeneratingAll();
 	CHECK_RC(nRetVal, "StartGenerating");
+		printf("head, shoulder, elbow, hand, status\n");
 
 //#ifndef USE_GLES
 	glInit(&argc, argv);
