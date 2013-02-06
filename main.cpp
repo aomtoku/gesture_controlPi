@@ -214,27 +214,34 @@ void gesture_ver1(XnPoint3D* Position){
 	new_turn = 1;
 	if(Position[5+3].Y < middle_low){
 	    sprintf(onof,"%s","low1");
-	    printf("status: low1\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
+	    printf("%lf,%lf,%lf,%lf,low1\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	    //printf("status: low1\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y > middle_low && Position[5+3].Y < Position[3+3].Y){
 	    sprintf(onof,"%s","low2");
-	    printf("status: low2\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
+	    printf("%lf,%lf,%lf,%lf,low2\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	    //printf("status: low2\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y < middle_mid){
 	    sprintf(onof,"%s","mid1");
-	    printf("status: mid1\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
+	    printf("%lf,%lf,%lf,%lf,mid1\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	    //printf("status: mid1\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y > middle_mid && Position[5+3].Y < Position[2].Y){
 	    sprintf(onof,"%s","mid2");
-	    printf("status: mid2\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
+	    printf("%lf,%lf,%lf,%lf,mid2\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	    //printf("status: mid2\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y < Position[2].Y + head){
 	    sprintf(onof,"%s","hig1");
-	    printf("status: hig1\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
+	    printf("%lf,%lf,%lf,%lf,hig1\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	    //printf("status: hig1\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} else if(Position[5+3].Y > Position[2].Y + head){
 	    sprintf(onof,"%s","hig2");
-	    printf("status: hig2\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
+	    printf("%lf,%lf,%lf,%lf,hig2\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	    //printf("status: hig2\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
 	} 
     } else {
 	sprintf(onof,"%s","no");
 	new_turn = 0;
-	printf("status: no\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
+	    printf("%lf,%lf,%lf,%lf,no\n",Position[2].Y,Position[6].Y,Position[7].Y,Position[8].Y);
+	//printf("status: no\n  hand : %lf\n  head : %lf\n  shoulder : %lf\n elbow : %lf\n    ",Position[5+3].Y,Position[2].Y,Position[6].Y,Position[7].Y);
     }
     write(sock0,onof,4);
     
@@ -292,7 +299,7 @@ void glutDisplay (void){
 		        Pos(aUsers[i],XN_SKEL_RIGHT_ELBOW,&Position[7]);
 		        Pos(aUsers[i],XN_SKEL_RIGHT_HAND,&Position[8]);
 /*
-		        Pos(aUsers[i],XN_SKEL_LEFT_HIP,&Position[9]);
+		        Pos(aUsers[i],XN_SKEL_LEFT_HIP,&Position[9]);
 		        Pos(aUsers[i],XN_SKEL_LEFT_KNEE,&Position[10]);
 		        Pos(aUsers[i],XN_SKEL_LEFT_FOOT,&Position[11]);
 
@@ -302,7 +309,7 @@ void glutDisplay (void){
 			*/
 		    }
 		}
-		
+		printf("head, shoulder, elbow, hand, status\n");
 		gesture_ver1(Position);
 	
 #ifndef USE_GLES
